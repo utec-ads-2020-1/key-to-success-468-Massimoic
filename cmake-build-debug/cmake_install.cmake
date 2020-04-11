@@ -1,4 +1,4 @@
-# Install script for directory: D:/__DATA/Documents/UTEC/ADS2020-1/KeyToSuccess
+# Install script for directory: D:/__DATA/Documents/UTEC/ADS2020-1/KeySuccess/key-to-success-468-Massimoic
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/__DATA/Documents/UTEC/ADS2020-1/KeyToSuccess/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/__DATA/Documents/UTEC/ADS2020-1/KeySuccess/key-to-success-468-Massimoic/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
