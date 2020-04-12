@@ -4,27 +4,14 @@
 #include <algorithm>
 using namespace std;
 
-string makeString(multimap<int,char, greater<int>> mapaCoded,
-        multimap<int,char, greater<int>> mapaUncoded) {
-
-    string finalText = "";
-    multimap<int,char, greater<int>>::iterator itr;
-    multimap<int,char, greater<int>>::iterator it;
-
-    for( itr = mapaCoded.begin() ; itr != mapaCoded.end() ; itr++) {
-        it = mapaUncoded.begin();
-        finalText + string(itr->first, (it->second));
-        it++;
-    }
-    return finalText;
-}
 
 multimap<int,char, greater<int>> translate(multimap<int,char, greater<int>> mapCoded, multimap<int,char, greater<int>> mapUncoded) {
+
     multimap<int,char, greater<int>> :: iterator itr;
     multimap<int,char, greater<int>> :: iterator it;
+    it = mapUncoded.begin();
 
     for( itr = mapCoded.begin() ; itr != mapCoded.end() ; itr++) {
-        it = mapUncoded.begin();
         itr->second = it->second;
         it++;
     }
@@ -43,7 +30,7 @@ multimap<int,char, greater<int> > invert(map<char,int> mapa) {
 
 map<char,int> countOccurrences(string text) {
     map<char,int> letters;
-    letters.insert(pair<char,int> (text[0],1));
+    letters.insert(pair<char,int> (text[0],0));
 
     for (char const &c : text) {
         if(letters.find(c) == letters.end())
@@ -69,32 +56,30 @@ void printMap(map<char,int> mapa) {
     }
 }
 
+string mapToString( multimap <int,char, greater<int>> finalMap) {
+    string translatedText = "";
+    multimap<int,char, greater<int>> :: iterator itr;
+
+    for(itr = finalMap.begin() ; itr != finalMap.end() ; itr++) {
+
+        for(int i = 0 ; i < itr->first ; i++) {
+            translatedText.push_back(itr->second);
+        }
+    }
+    return translatedText;
+}
+
 int main() {
-    char blank;
     string textCoded, textUncoded, textFinal;
     int n ;
+    cin >> n;
 
-    cin >> n >> blank;
-    cin >> textUncoded >> textCoded;
-    sort(textCoded.begin(),textCoded.end());
-    sort(textUncoded.begin(),textUncoded.end());
-
-    printMap(countOccurrences(textUncoded));
-    printInvertedMap(invert(countOccurrences(textUncoded)));
-    cout << endl;
-
-    printMap(countOccurrences(textCoded));
-    printInvertedMap(invert(countOccurrences(textCoded)));
-    cout << endl;
-
-    printInvertedMap(translate(invert(countOccurrences(textUncoded)), invert(countOccurrences(textCoded))));
-
-
-    /*for ( int i = 0 ; i < n ; i++) {
+    for ( int i = 0 ; i < n ; i++) {
         cin >> textUncoded >> textCoded;
-    }*/
-
-
-
+        sort(textCoded.begin(),textCoded.end());
+        sort(textUncoded.begin(),textUncoded.end());
+        textFinal = mapToString(translate(invert(countOccurrences(textCoded)), invert(countOccurrences(textUncoded))));
+        cout << textFinal << endl;
+    }
     return 0;
 }
