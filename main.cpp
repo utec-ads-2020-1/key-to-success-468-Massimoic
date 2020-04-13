@@ -5,17 +5,25 @@
 using namespace std;
 
 
-multimap<int,char, greater<int>> translate(multimap<int,char, greater<int>> mapCoded, multimap<int,char, greater<int>> mapUncoded) {
+string translateText(string text, map<char,char> charMap) {
+    string translatedText = "";
+    for(char const &c : text) {
+        translatedText.push_back(charMap.at(c));
+    }
+    return translatedText;
+}
 
+map<char,char> translateCharacters(multimap<int,char, greater<int>> mapCoded, multimap<int,char, greater<int>> mapUncoded) {
+    map<char,char> result;
     multimap<int,char, greater<int>> :: iterator itr;
     multimap<int,char, greater<int>> :: iterator it;
     it = mapUncoded.begin();
 
     for( itr = mapCoded.begin() ; itr != mapCoded.end() ; itr++) {
-        itr->second = it->second;
+        result.insert(pair<char,char> (itr->second,it->second));
         it++;
     }
-    return mapCoded;
+    return result;
 }
 
 multimap<int,char, greater<int> > invert(map<char,int> mapa) {
@@ -49,8 +57,8 @@ void printInvertedMap(multimap<int,char, greater<int>> mapa ) {
     }
 }
 
-void printMap(map<char,int> mapa) {
-    map<char,int>::iterator itr;
+void printMap(map<char,char> mapa) {
+    map<char,char>::iterator itr;
     for(itr = mapa.begin() ; itr != mapa.end(); itr++) {
         cout << itr->first << " : " << itr->second << endl;
     }
@@ -76,10 +84,9 @@ int main() {
 
     for ( int i = 0 ; i < n ; i++) {
         cin >> textUncoded >> textCoded;
-        sort(textCoded.begin(),textCoded.end());
-        sort(textUncoded.begin(),textUncoded.end());
-        textFinal = mapToString(translate(invert(countOccurrences(textCoded)), invert(countOccurrences(textUncoded))));
-        cout << textFinal << endl;
+        //printMap(translateCharacters(invert(countOccurrences(textCoded)),invert(countOccurrences(textUncoded))));
+        textFinal = translateText(textCoded, translateCharacters(invert(countOccurrences(textCoded)), invert(countOccurrences(textUncoded))));
+        cout << textFinal << "\n\n";
     }
     return 0;
 }
