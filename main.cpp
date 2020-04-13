@@ -50,7 +50,7 @@ map<char,int> countOccurrences(string text) {
     return letters;
 }
 
-void printInvertedMap(multimap<int,char, greater<int>> mapa ) {
+/*void printInvertedMap(multimap<int,char, greater<int>> mapa ) {
     map<int,char, greater<int>>::iterator itr;
     for(itr = mapa.begin() ; itr != mapa.end(); itr++) {
         cout << itr->first << " : " << itr->second << endl;
@@ -75,7 +75,7 @@ string mapToString( multimap <int,char, greater<int>> finalMap) {
         }
     }
     return translatedText;
-}
+}*/
 
 int main() {
     string textCoded, textUncoded, textFinal;
@@ -84,9 +84,10 @@ int main() {
 
     for ( int i = 0 ; i < n ; i++) {
         cin >> textUncoded >> textCoded;
-        //printMap(translateCharacters(invert(countOccurrences(textCoded)),invert(countOccurrences(textUncoded))));
         textFinal = translateText(textCoded, translateCharacters(invert(countOccurrences(textCoded)), invert(countOccurrences(textUncoded))));
-        cout << textFinal << "\n\n";
+        textFinal.erase(std::remove(textFinal.begin(), textFinal.end(), '\n'), textFinal.end());
+        cout << textFinal;
+        cout << endl << endl;
     }
     return 0;
 }
